@@ -21,7 +21,7 @@ namespace iterations
             int[] losowanie = new int[6];
             LosowanieLiczb(losowanie);
             const int totalRolls = 66;
-            int[] wynikiLosowania = new int[totalRolls];
+            int[][] wynikiLosowania = {new int[totalRolls], losowanie};
             //Console.WriteLine("wylosowane liczby:");
             //Console.WriteLine(string.Join(", ", losowanie));
             //Console.WriteLine("jaka jest length dla losowanie? --> {0}", losowanie.Length);
@@ -37,20 +37,29 @@ namespace iterations
                 }
 
             }
+
+            for (int i = 0; i < wynikiLosowania.Length; i++)
+            {
+                for (int j = 0; j < wynikiLosowania[i].Length; j++)
+                {
+                    Console.WriteLine("\t" + wynikiLosowania[i][j].ToString());
+                }
+            }
+
             //Console.WriteLine(string.Join(", ", losowanie));
             //int[] results = new int [totalRolls];
-            for (int x = 0; x < totalRolls; x++)
-            {
-                wynikiLosowania = LosowanieLiczb(losowanie);
-                Console.WriteLine(string.Join(", ", wynikiLosowania));
+            //for (int x = 0; x < totalRolls; x++)
+            //{
+            //    wynikiLosowania = LosowanieLiczb(losowanie);
+            //    Console.WriteLine(string.Join(", ", wynikiLosowania));
 
 
-                //problem: jak woyszczeglne losowania do tablicy, aby pozniej sprawdzic jej zawartosc
-                //pod katem powtafzania sie losowan?
+            //    //problem: jak woyszczeglne losowania do tablicy, aby pozniej sprawdzic jej zawartosc
+            //    //pod katem powtafzania sie losowan?
 
-                //bool isEqual = Enumerable.SequenceEqual(losowanie, wynikiLosowania);
-                //Console.WriteLine(isEqual);
-            }
+            //    //bool isEqual = Enumerable.SequenceEqual(losowanie, wynikiLosowania);
+            //    //Console.WriteLine(isEqual);
+            //}
 
             for (int i = 0; i < (losowanie.Length); i++)
             {
@@ -64,7 +73,7 @@ namespace iterations
         public static int [] LosowanieLiczb(int [] losowanie)
         {
             int k = 0;
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 6; i++)//stworzenie tablicy dla wyniku losowania
             {
                 losowanie[i] = RandNumber(1, 49);                
             }
