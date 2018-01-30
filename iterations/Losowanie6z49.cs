@@ -1,7 +1,9 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +28,7 @@ namespace iterations
             ArrayList listaLosowan = new ArrayList();
             var losowanieJakoTablica = new int[6];
             var czasStart = DateTime.Now;
+            IEnumerable <object> test = new List<object>();
             
 
             Console.WriteLine("Start aplikacji: "+czasStart);
@@ -63,13 +66,27 @@ namespace iterations
             //} 
             #endregion
 
+            //foreach (var VARIABLE in listaLosowan)
+            //{
+            //    test = listaLosowan.ToArray().Distinct();
+            //    //listaLosowan.Sort();
+
+
+            //}
+
+            test = listaLosowan.ToArray().Distinct();
+            if (test.ToList().Count < listaLosowan.Count)
+            {
+                Console.WriteLine("jest roznica!!!");
+            }
+
             Console.WriteLine("Czas wykonania calosci programu: " + (DateTime.Now.Second - czasStart.Second) + " sekund");
 
         }
 
         private static void IloscLosowanNaListe(int[] losowanie, ArrayList listaLosowan, out int i)
         {
-            for (i = 0; i < 1000; i++)
+            for (i = 0; i < 10; i++)
             {
                 var test = losowanie.AsEnumerable().ToArray();
                 listaLosowan.Add(test);

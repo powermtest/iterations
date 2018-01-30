@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace iterations
 {
@@ -14,13 +15,9 @@ namespace iterations
             Array.Sort(losowanie);
             if (losowanie[k] == losowanie[k + 1])
             {
-                //Console.WriteLine("*metoda* znalazlem duplikaty, losujemy powtornie");
                 LosowanieLiczb(losowanie);
-                
-                //Console.WriteLine("*metoda* nowe wylosowane liczby to: {0}", string.Join(", ", losowanie));
             }
-            
-            
+
             return losowanie;
         }
     }
