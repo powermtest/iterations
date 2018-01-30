@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +11,7 @@ namespace iterations
 {
     public static class Losowanie6Z49 //zwracana jest macierz z 6 liczbami od 1 do 49
     {
+        
         public static int RandNumber(int low, int high)
         {
             Random rndNum = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
@@ -19,74 +22,81 @@ namespace iterations
         static void Main(string[] args)
         {
             int[] losowanie = new int[6];
-            LosowanieLiczb(losowanie);
-            //const int totalRolls = 66;
-            //int[][] wynikiLosowania = {new int[totalRolls], losowanie};
-            //Console.WriteLine("wylosowane liczby:");
-            //Console.WriteLine(string.Join(", ", losowanie));
-            //Console.WriteLine("jaka jest length dla losowanie? --> {0}", losowanie.Length);
+            LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
+            ArrayList listaLosowan = new ArrayList();
+            var losowanieJakoTablica = new int[6];
+
             
-            //Sprawdzamy czy w losowaniu nie ma zduplikowanych liczb
-            for (int k = 0; k < losowanie.Length - 1; k++)
-            {
-                if (losowanie[k] == losowanie[k + 1]) //spr czy w nastepnej iteracji nie pojawia sie taka sama liczba
-                {
-                    //Console.WriteLine("znalazlem duplikaty, losujemy powtornie");
-                    LosowanieLiczb(losowanie);
-                    k = 0;
-                    //Console.WriteLine("nowe wylosowane liczby to: {0}", string.Join(", ", losowanie));
-                }
 
-            }
-
-            //for (int i = 0; i < wynikiLosowania.Length; i++)
+            //Sprawdzamy czy w losowaniu nie ma zduplikowanych liczb -- nieskuteczne
+            #region Prawdopodobnie_zbedne_do_usuniecia
+            //!!!nieskuteczna metoda usuwania duplikatow
+            //for (int k = 0; k < losowanie.Length - 1; k++)
             //{
-            //    for (int j = 0; j < wynikiLosowania[i].Length; j++)
+            //    if (losowanie[k] == losowanie[k + 1]) //spr czy w nastepnej iteracji nie pojawia sie taka sama liczba
             //    {
-            //        Console.WriteLine("\t" + wynikiLosowania[i][j].ToString());
+            //        //Console.WriteLine("znalazlem duplikaty, losujemy powtornie");
+            //        LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
+            //        k = 0;
+            //        //Console.WriteLine("nowe wylosowane liczby to: {0}", string.Join(", ", losowanie));
             //    }
-            //}
 
-            //Console.WriteLine(string.Join(", ", losowanie));
-            //int[] results = new int [totalRolls];
-            //for (int x = 0; x < totalRolls; x++)
-            //{
-            //    wynikiLosowania = LosowanieLiczb(losowanie);
-            //    Console.WriteLine(string.Join(", ", wynikiLosowania));
-
-
-            //    //problem: jak woyszczeglne losowania do tablicy, aby pozniej sprawdzic jej zawartosc
-            //    //pod katem powtafzania sie losowan?
-
-            //    //bool isEqual = Enumerable.SequenceEqual(losowanie, wynikiLosowania);
-            //    //Console.WriteLine(isEqual);
-            //}
-
+            //} 
+            #endregion
+            
+            #region Wyswietlanie_na_ekranie_pierwszego_losowania
+            //do usuniecia
             for (int i = 0; i < (losowanie.Length); i++)
             {
                 Console.WriteLine("{0}: {1} ", i + 1, string.Join(", ", losowanie[i]));
                 //Console.WriteLine("{0}: {1} ({2:p1})", i + 1, losowanie[i], (double)results[i] / (double)totalRolls);
             }
-            
 
-        }
+            foreach (var VARIABLE in losowanie)
+            {
+                var i = 0;
+                losowanieJakoTablica[i] = VARIABLE;
+                i++;
+            } 
+            #endregion
 
-        public static int [] LosowanieLiczb(int [] losowanie)
-        {
-            int k = 0;
-            for (int i = 0; i < 6; i++)//stworzenie tablicy dla wyniku losowania
+
+            //losowanie odpowiedniej ilosci liczb
+            //uniemozliwienie istnienia duplikatow w losowaniu (ponownie)
+            for (int i = 0; i < 100; i++)
             {
-                losowanie[i] = RandNumber(1, 49);                
+                var test = losowanie.AsEnumerable().ToArray();
+                listaLosowan.Add(test);
+                LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
+                var rozne = losowanie.Distinct();//do uniemozliwienia istnienia duplikatow w losowaniu
+                if (rozne.ToArray().Length == losowanie.Length)
+                {
+                    
+                    continue;
+                }
+                else
+                {
+                    listaLosowan.RemoveAt(i);
+                    i--;
+                }
+
             }
-            Array.Sort(losowanie);
-            if (losowanie[k] == losowanie[k + 1])
+
+            #region Wypisz_wszystkie_wyniki_losowania
+            //to pozwala wypisac wszystkie wyniki
+            Console.WriteLine("-------");
+            foreach (int[] VARIABLE in listaLosowan)
             {
-                //Console.WriteLine("*metoda* znalazlem duplikaty, losujemy powtornie");
-                LosowanieLiczb(losowanie);
-                
-                //Console.WriteLine("*metoda* nowe wylosowane liczby to: {0}", string.Join(", ", losowanie));
-            }
-            return losowanie;
+                foreach (var i in VARIABLE)
+                {
+                    Console.Write(i + ", ");
+                }
+
+                Console.WriteLine();
+            } 
+            #endregion
+
+
         }
     }
 }
