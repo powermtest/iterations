@@ -20,8 +20,8 @@ namespace iterations
         {
             int[] losowanie = new int[6];
             LosowanieLiczb(losowanie);
-            const int totalRolls = 66;
-            int[][] wynikiLosowania = {new int[totalRolls], losowanie};
+            //const int totalRolls = 66;
+            //int[][] wynikiLosowania = {new int[totalRolls], losowanie};
             //Console.WriteLine("wylosowane liczby:");
             //Console.WriteLine(string.Join(", ", losowanie));
             //Console.WriteLine("jaka jest length dla losowanie? --> {0}", losowanie.Length);
@@ -33,18 +33,19 @@ namespace iterations
                 {
                     //Console.WriteLine("znalazlem duplikaty, losujemy powtornie");
                     LosowanieLiczb(losowanie);
+                    k = 0;
                     //Console.WriteLine("nowe wylosowane liczby to: {0}", string.Join(", ", losowanie));
                 }
 
             }
 
-            for (int i = 0; i < wynikiLosowania.Length; i++)
-            {
-                for (int j = 0; j < wynikiLosowania[i].Length; j++)
-                {
-                    Console.WriteLine("\t" + wynikiLosowania[i][j].ToString());
-                }
-            }
+            //for (int i = 0; i < wynikiLosowania.Length; i++)
+            //{
+            //    for (int j = 0; j < wynikiLosowania[i].Length; j++)
+            //    {
+            //        Console.WriteLine("\t" + wynikiLosowania[i][j].ToString());
+            //    }
+            //}
 
             //Console.WriteLine(string.Join(", ", losowanie));
             //int[] results = new int [totalRolls];
@@ -82,6 +83,7 @@ namespace iterations
             {
                 //Console.WriteLine("*metoda* znalazlem duplikaty, losujemy powtornie");
                 LosowanieLiczb(losowanie);
+                
                 //Console.WriteLine("*metoda* nowe wylosowane liczby to: {0}", string.Join(", ", losowanie));
             }
             return losowanie;
