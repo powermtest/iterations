@@ -20,13 +20,16 @@ namespace iterations
             int[] losowanie = new int[6];
             LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
             ArrayList listaLosowan = new ArrayList();
+            ArrayList duplikatListyLosowan = new ArrayList();
             //var losowanieJakoTablica = new int[6];
             var czasStart = DateTime.Now;
-            IEnumerable <object> test = new List<object>();
-            
+            IEnumerable<object> test = new List<object>();
 
-            Console.WriteLine("Start aplikacji: "+czasStart);
+
+            Console.WriteLine("Start aplikacji: " + czasStart);
+
             #region Wyswietlanie_na_ekranie_pierwszego_losowania
+
             ////do usuniecia
             //for (int i = 0; i < (losowanie.Length); i++)
             //{
@@ -40,13 +43,15 @@ namespace iterations
             //    losowanieJakoTablica[i] = VARIABLE;
             //    i++;
             //} 
+
             #endregion
 
             IloscLosowanNaListe(losowanie, listaLosowan, out var i);
 
-            Console.WriteLine("Koniec obliczen: "+(DateTime.Now.Second-czasStart.Second) +" sekund");
+            Console.WriteLine("Koniec obliczen: " + (DateTime.Now - czasStart) + " sekund");
 
             #region Wypisz_wszystkie_wyniki_losowania
+
             ////to pozwala wypisac wszystkie wyniki
             //Console.WriteLine("-------");
             //foreach (int[] losowanieIteracja in listaLosowan)
@@ -58,13 +63,12 @@ namespace iterations
 
             //    Console.WriteLine();
             //}
+
             #endregion
 
 
-
-            //nie wiem jak sprawdzić czy ta metoda faktycznie waliduje duplikację
-
             #region Testowanie czy funkcja 'distinct' działa. Jest OK!
+
             //var dodawanie = new int[6] { 5, 6, 7, 8, 9, 10 };
             //listaLosowan.RemoveRange(66, 4);
             //listaLosowan.Add(dodawanie);
@@ -77,6 +81,7 @@ namespace iterations
             #endregion
 
             #region Testowanie czy porównanie długości ma w ogóle sens
+
             //var testCzyLista = test.ToList().Count;
             //var testDlugosciInnejListy = listaLosowan.Count;
             //if (testCzyLista == testDlugosciInnejListy)
@@ -87,35 +92,129 @@ namespace iterations
             //{
             //    Console.WriteLine("Długość się nie zgadza!");
             //} 
-            #endregion
-            test = listaLosowan.ToArray().Distinct();
 
-            if (test.ToList().Count != listaLosowan.Count)
+            #endregion
+
+            test = listaLosowan.ToArray().Distinct();
+            
+            var dlugoscListyTest = test.Count();
+            var dlugoscListyLosowan = listaLosowan.Count;
+            if (dlugoscListyTest != dlugoscListyLosowan)
             {
                 Console.WriteLine("jest roznica!!!");
             }
 
-            Console.WriteLine("Czas wykonania calosci programu: " + (DateTime.Now.Second - czasStart.Second) + " sekund");
-
+            Console.WriteLine("Czas wykonania calosci programu: " + (DateTime.Now - czasStart));
         }
 
         private static void IloscLosowanNaListe(int[] losowanie, ArrayList listaLosowan, out int i)
         {
-            for (i = 0; i < 100; i++)
+            var test1 = losowanie.AsEnumerable().ToArray();
+            var duplikatListyLosowan = new ArrayList();
+            for (i = 0; i < 15000000; i++)
             {
-                var test = losowanie.AsEnumerable().ToArray();
-                listaLosowan.Add(test);
+                
+                
+                listaLosowan.Add(test1);
+                duplikatListyLosowan.Add(test1);
                 LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
                 var rozne = losowanie.Distinct(); //do uniemozliwienia istnienia duplikatow w losowaniu
-                if (rozne.ToArray().Length == losowanie.Length)
+                var iloscElementowRozne = rozne.ToArray().Length;
+                var iloscElementowLosowanie = losowanie.Length;
+                if (iloscElementowRozne == iloscElementowLosowanie)
                 {
-                    continue;
+                    switch (i)
+                    {
+                        case 50000:
+                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
+                            break;
+                        case 100000:
+                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
+                            break;
+                        case 150000:
+                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
+                            break;
+                        case 250000:
+                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
+                            break;
+                                
+                        case 500000:
+                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
+                            break;
+
+                        case 750000:
+                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
+                            break;
+
+                        case 900000:
+                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
+                            break;
+
+                        case 1250000:
+                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
+                            break;
+
+                        case 1750000:
+                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
+                            break;
+
+                        case 2500000:
+                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
+                            break;
+
+                        case 3500000:
+                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
+                            break;
+
+                        case 5000000:
+                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
+                            break;
+
+                        case 7500000:
+                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
+                            break;
+
+                        case 9000000:
+                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
+                            break;
+
+                        case 11111111:
+                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
+                            break;
+
+                        case 12222222:
+                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
+                            break;
+
+                        case 13333333:
+                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
+                            break;
+
+                        case 14444444:
+                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
+                           break;
+                    }
                 }
                 else
                 {
+                    Console.WriteLine("Znalazłem zduplikowane liczby w losowaniu - losuję jeszcze raz.");
                     listaLosowan.RemoveAt(i);
                     i--;
                 }
+                if (listaLosowan.Equals(duplikatListyLosowan))
+                {
+                    Console.WriteLine("listy są identyczne");
+                }
+                //skoro mam dwie identyczne listy (to powyżej nie działa), to może porównamy je element po elemencie?
+
+
+                //continue;
+
+
+
+
+
+
             }
         }
     }
