@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace iterations
 {
@@ -7,18 +6,28 @@ namespace iterations
     {
         public static int [] LosowanieLiczb(int [] losowanie)
         {
+            //var test = new int[6] {4, 5, 3, 4, 5,14};
             int k = 0;
             for (int i = 0; i < 6; i++)//stworzenie tablicy dla wyniku losowania
             {
                 losowanie[i] = Losowanie6Z49.RandNumber(1, 49);                
             }
+            //losowanie = test;
             Array.Sort(losowanie);
-            if (losowanie[k] == losowanie[k + 1])
+            foreach (var liczba in losowanie)
             {
-                LosowanieLiczb(losowanie);
+                
+                if (k < 5 && losowanie[k] == losowanie[k + 1])
+                {
+                    LosowanieLiczb(losowanie);
+                }
+                k++;
             }
+            
 
             return losowanie;
         }
+
+        
     }
 }

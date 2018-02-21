@@ -1,13 +1,7 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Security.Cryptography;
 
 namespace iterations
 {
@@ -26,7 +20,7 @@ namespace iterations
             int[] losowanie = new int[6];
             LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
             ArrayList listaLosowan = new ArrayList();
-            var losowanieJakoTablica = new int[6];
+            //var losowanieJakoTablica = new int[6];
             var czasStart = DateTime.Now;
             IEnumerable <object> test = new List<object>();
             
@@ -53,29 +47,50 @@ namespace iterations
             Console.WriteLine("Koniec obliczen: "+(DateTime.Now.Second-czasStart.Second) +" sekund");
 
             #region Wypisz_wszystkie_wyniki_losowania
-            //to pozwala wypisac wszystkie wyniki
+            ////to pozwala wypisac wszystkie wyniki
             //Console.WriteLine("-------");
-            //foreach (int[] VARIABLE in listaLosowan)
+            //foreach (int[] losowanieIteracja in listaLosowan)
             //{
-            //    foreach (var i in VARIABLE)
+            //    foreach (var liczba in losowanieIteracja)
             //    {
-            //        Console.Write(i + ", ");
+            //        Console.Write(liczba + ", ");
             //    }
 
             //    Console.WriteLine();
-            //} 
+            //}
             #endregion
 
-            //foreach (var VARIABLE in listaLosowan)
+
+
+            //nie wiem jak sprawdzić czy ta metoda faktycznie waliduje duplikację
+
+            #region Testowanie czy funkcja 'distinct' działa. Jest OK!
+            //var dodawanie = new int[6] { 5, 6, 7, 8, 9, 10 };
+            //listaLosowan.RemoveRange(66, 4);
+            //listaLosowan.Add(dodawanie);
+            //listaLosowan.Add(dodawanie);
+            //test = listaLosowan.ToArray().Distinct();
+
+            //var test2 = test.Count();
+            //var test3 = listaLosowan.Count;
+
+            #endregion
+
+            #region Testowanie czy porównanie długości ma w ogóle sens
+            //var testCzyLista = test.ToList().Count;
+            //var testDlugosciInnejListy = listaLosowan.Count;
+            //if (testCzyLista == testDlugosciInnejListy)
             //{
-            //    test = listaLosowan.ToArray().Distinct();
-            //    //listaLosowan.Sort();
-
-
+            //    Console.WriteLine("Długośc jest taka sama!");
             //}
-
+            //else
+            //{
+            //    Console.WriteLine("Długość się nie zgadza!");
+            //} 
+            #endregion
             test = listaLosowan.ToArray().Distinct();
-            if (test.ToList().Count < listaLosowan.Count)
+
+            if (test.ToList().Count != listaLosowan.Count)
             {
                 Console.WriteLine("jest roznica!!!");
             }
@@ -86,7 +101,7 @@ namespace iterations
 
         private static void IloscLosowanNaListe(int[] losowanie, ArrayList listaLosowan, out int i)
         {
-            for (i = 0; i < 10; i++)
+            for (i = 0; i < 100; i++)
             {
                 var test = losowanie.AsEnumerable().ToArray();
                 listaLosowan.Add(test);
