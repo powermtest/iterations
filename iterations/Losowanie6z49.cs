@@ -46,7 +46,7 @@ namespace iterations
 
             #endregion
 
-            IloscLosowanNaListe(losowanie, listaLosowan, out var i);
+            IloscLosowanNaListe(losowanie, listaLosowan, duplikatListyLosowan, out var i);
 
             Console.WriteLine("Koniec obliczen: " + (DateTime.Now - czasStart) + " sekund");
 
@@ -104,20 +104,40 @@ namespace iterations
                 Console.WriteLine("jest roznica!!!");
             }
 
+            var liczknikDuplikat = 0;
+            var listaPowtorzonuchLosowan = new ArrayList();
+            foreach (var obiekt in listaLosowan)
+            {//TODO: dodac licznik pętli i wyświetlić go co np.10 sekund
+                if (duplikatListyLosowan.Contains(obiekt))
+                {
+                    Console.WriteLine("znalazłem powtarzające się losowania!");
+                    listaPowtorzonuchLosowan.Add(obiekt);
+                    liczknikDuplikat++;
+                }
+                
+                
+            }
+            if (liczknikDuplikat == 0)
+            {
+                Console.WriteLine("Nic się nie powtórzyło...");
+            }
+
             Console.WriteLine("Czas wykonania calosci programu: " + (DateTime.Now - czasStart));
         }
 
-        private static void IloscLosowanNaListe(int[] losowanie, ArrayList listaLosowan, out int i)
+        private static void IloscLosowanNaListe(int[] losowanie, ArrayList listaLosowan, ArrayList duplikatListyLosowan, out int i)
         {
-            var test1 = losowanie.AsEnumerable().ToArray();
-            var duplikatListyLosowan = new ArrayList();
-            for (i = 0; i < 15000000; i++)
+            
+            //var duplikatListyLosowan = new ArrayList();
+            for (i = 0; i < 150000; i++)
             {
-                
-                
-                listaLosowan.Add(test1);
-                duplikatListyLosowan.Add(test1);
                 LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
+                var test1 = losowanie.AsEnumerable().ToArray();
+                listaLosowan.Add(test1);
+                LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
+                var test2 = losowanie.AsEnumerable().ToArray();
+                duplikatListyLosowan.Add(test2);
+                //LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
                 var rozne = losowanie.Distinct(); //do uniemozliwienia istnienia duplikatow w losowaniu
                 var iloscElementowRozne = rozne.ToArray().Length;
                 var iloscElementowLosowanie = losowanie.Length;
