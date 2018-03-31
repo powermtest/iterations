@@ -21,13 +21,9 @@ namespace iterations
             LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
             ArrayList listaLosowan = new ArrayList();
             ArrayList duplikatListyLosowan = new ArrayList();
-            //var losowanieJakoTablica = new int[6];
             var czasStart = DateTime.Now;
-            IEnumerable<object> test = new List<object>();
-
 
             Console.WriteLine("Start aplikacji: " + czasStart);
-
             #region Wyswietlanie_na_ekranie_pierwszego_losowania
 
             ////do usuniecia
@@ -45,11 +41,8 @@ namespace iterations
             //} 
 
             #endregion
-
             IloscLosowanNaListe(losowanie, listaLosowan, duplikatListyLosowan, out var i);
-
             Console.WriteLine("Koniec obliczen: " + (DateTime.Now - czasStart) + " sekund");
-
             #region Wypisz_wszystkie_wyniki_losowania
 
             ////to pozwala wypisac wszystkie wyniki
@@ -65,8 +58,6 @@ namespace iterations
             //}
 
             #endregion
-
-
             #region Testowanie czy funkcja 'distinct' działa. Jest OK!
 
             //var dodawanie = new int[6] { 5, 6, 7, 8, 9, 10 };
@@ -79,7 +70,6 @@ namespace iterations
             //var test3 = listaLosowan.Count;
 
             #endregion
-
             #region Testowanie czy porównanie długości ma w ogóle sens
 
             //var testCzyLista = test.ToList().Count;
@@ -94,30 +84,39 @@ namespace iterations
             //} 
 
             #endregion
-
-            test = listaLosowan.ToArray().Distinct();
-            
-            var dlugoscListyTest = test.Count();
-            var dlugoscListyLosowan = listaLosowan.Count;
-            if (dlugoscListyTest != dlugoscListyLosowan)
-            {
-                Console.WriteLine("jest roznica!!!");
-            }
-
+            #region Sprawdzanie czy 'Distinct' robi swoją robotę - niepotrzebne już. Mam inne metody.
+            //IEnumerable<object> test = new List<object>();
+            //test = listaLosowan.ToArray().Distinct();
+            //var dlugoscListyTest = test.Count();
+            //var dlugoscListyLosowan = listaLosowan.Count;
+            //if (dlugoscListyTest != dlugoscListyLosowan)
+            //{
+            //    Console.WriteLine("jest roznica!!!");
+            //} 
+            #endregion
             var liczknikDuplikat = 0;
             var listaPowtorzonuchLosowan = new ArrayList();
             var licznikPetli = 0;
             var czasWykonywanaPetli = DateTime.Now;
+            SzukanieDuplikatowLosowan(listaLosowan, licznikPetli, czasWykonywanaPetli, duplikatListyLosowan, listaPowtorzonuchLosowan, liczknikDuplikat);
+            Console.WriteLine("Czas wykonania calosci programu: " + (DateTime.Now - czasStart));
+        }
+
+        private static void SzukanieDuplikatowLosowan(ArrayList listaLosowan, int licznikPetli, DateTime czasWykonywanaPetli,
+            ArrayList duplikatListyLosowan, ArrayList listaPowtorzonuchLosowan, int liczknikDuplikat)
+        {
             foreach (var obiekt in listaLosowan)
             {
-                
                 if (licznikPetli == 1000 || licznikPetli == 10000 || licznikPetli == 25000 || licznikPetli == 50000 ||
                     licznikPetli == 70000 || licznikPetli == 90000 || licznikPetli == 100000 || licznikPetli == 130000)
                 {
-                    Console.WriteLine("Wykonałem już {0} porównań. Minęło {1}.", licznikPetli, (DateTime.Now-czasWykonywanaPetli));
+                    Console.WriteLine("Wykonałem już {0} porównań. Minęło {1}.", licznikPetli,
+                        (DateTime.Now - czasWykonywanaPetli));
                 }
+                #region Sprawdzanie funkcjonalności listowania znalezionych duplikatów
                 ////Test, czy znajdowanie obiektów działa
-                duplikatListyLosowan.Insert(0,obiekt);
+                //duplikatListyLosowan.Insert(0, obiekt); 
+                #endregion
                 if (duplikatListyLosowan.Contains(obiekt))
                 {
                     Console.WriteLine("znalazłem powtarzające się losowania!");
@@ -131,17 +130,13 @@ namespace iterations
                         }
                         Console.WriteLine();
                     }
-                    
                 }
                 licznikPetli++;
-
             }
             if (liczknikDuplikat == 0)
             {
                 Console.WriteLine("Nic się nie powtórzyło...");
             }
-
-            Console.WriteLine("Czas wykonania calosci programu: " + (DateTime.Now - czasStart));
         }
 
         private static void IloscLosowanNaListe(int[] losowanie, ArrayList listaLosowan, ArrayList duplikatListyLosowan, out int i)
