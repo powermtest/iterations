@@ -108,11 +108,7 @@ namespace iterations
             var listaPowtorzonuchLosowan = new ArrayList();
             var licznikPetli = 0;
             var czasWykonywanaPetli = DateTime.Now;
-            //var czasWykonywaniaPetliPosredni = new DateTime();
-            //var sekundy = 0;
-            //var sekundyProgres = 0;
             foreach (var obiekt in listaLosowan)
-
             {
                 
                 if (licznikPetli == 1000 || licznikPetli == 10000 || licznikPetli == 25000 || licznikPetli == 50000 ||
@@ -120,14 +116,19 @@ namespace iterations
                 {
                     Console.WriteLine("Wykonałem już {0} porównań. Minęło {1}.", licznikPetli, (DateTime.Now-czasWykonywanaPetli));
                 }
+                ////Test, czy znajdowanie obiektów działa
+                //duplikatListyLosowan.Insert(0,obiekt);
+                
                 if (duplikatListyLosowan.Contains(obiekt))
                 {
                     Console.WriteLine("znalazłem powtarzające się losowania!");
                     listaPowtorzonuchLosowan.Add(obiekt);
                     liczknikDuplikat++;
+                    
                 }
                 licznikPetli++;
-                            }
+                
+            }
             if (liczknikDuplikat == 0)
             {
                 Console.WriteLine("Nic się nie powtórzyło...");
@@ -235,10 +236,11 @@ namespace iterations
                
                 
             }
-            if (listaLosowan.Equals(duplikatListyLosowan))
-            {
-                Console.WriteLine("listy są identyczne");
-            }
+            //skoro mam dwie osobno generowane listy, to poniższe jest nieaktualne...
+            //if (listaLosowan.Equals(duplikatListyLosowan))
+            //{
+            //    Console.WriteLine("listy są identyczne");
+            //}
         }
     }
 }
