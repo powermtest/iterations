@@ -113,7 +113,8 @@ namespace iterations
             //var sekundyProgres = 0;
             foreach (var obiekt in listaLosowan)
 
- 
+            {
+                
                 if (licznikPetli == 1000 || licznikPetli == 10000 || licznikPetli == 25000 || licznikPetli == 70000 || licznikPetli == 100000 || licznikPetli == 130000)
                 {
                     Console.WriteLine("Wykonałem już {0} porównań. Minęło {1}.", licznikPetli, (DateTime.Now-czasWykonywanaPetli));
