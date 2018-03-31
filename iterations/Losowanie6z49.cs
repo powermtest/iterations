@@ -106,17 +106,26 @@ namespace iterations
 
             var liczknikDuplikat = 0;
             var listaPowtorzonuchLosowan = new ArrayList();
+            var licznikPetli = 0;
+            var czasWykonywanaPetli = DateTime.Now;
+            //var czasWykonywaniaPetliPosredni = new DateTime();
+            //var sekundy = 0;
+            //var sekundyProgres = 0;
             foreach (var obiekt in listaLosowan)
-            {//TODO: dodac licznik pętli i wyświetlić go co np.10 sekund
+
+ 
+                if (licznikPetli == 1000 || licznikPetli == 10000 || licznikPetli == 25000 || licznikPetli == 70000 || licznikPetli == 100000 || licznikPetli == 130000)
+                {
+                    Console.WriteLine("Wykonałem już {0} porównań. Minęło {1}.", licznikPetli, (DateTime.Now-czasWykonywanaPetli));
+                }
                 if (duplikatListyLosowan.Contains(obiekt))
                 {
                     Console.WriteLine("znalazłem powtarzające się losowania!");
                     listaPowtorzonuchLosowan.Add(obiekt);
                     liczknikDuplikat++;
                 }
-                
-                
-            }
+                licznikPetli++;
+                            }
             if (liczknikDuplikat == 0)
             {
                 Console.WriteLine("Nic się nie powtórzyło...");
