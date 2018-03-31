@@ -108,7 +108,15 @@ namespace iterations
             foreach (var obiekt in listaLosowan)
             {
                 if (licznikPetli == 1000 || licznikPetli == 10000 || licznikPetli == 25000 || licznikPetli == 50000 ||
-                    licznikPetli == 70000 || licznikPetli == 90000 || licznikPetli == 100000 || licznikPetli == 130000)
+                    licznikPetli == 70000 || licznikPetli == 90000 || licznikPetli == 100000 || licznikPetli == 130000 ||
+                    licznikPetli == 250000 || licznikPetli == 500000 || licznikPetli == 750000 || licznikPetli == 1000000 ||
+                    licznikPetli == 1500000 || licznikPetli == 2000000 || licznikPetli == 2500000 || licznikPetli == 3000000 ||
+                    licznikPetli == 3500000 || licznikPetli == 4000000 || licznikPetli == 4500000 || licznikPetli == 5000000 ||
+                    licznikPetli == 5500000 || licznikPetli == 6000000 || licznikPetli == 6500000 || licznikPetli == 7000000 ||
+                    licznikPetli == 7500000 || licznikPetli == 8000000 || licznikPetli == 8500000 || licznikPetli == 9000000 ||
+                    licznikPetli == 9500000 || licznikPetli == 10000000 || licznikPetli == 10500000 || licznikPetli == 11000000 ||
+                    licznikPetli == 11500000 || licznikPetli == 12000000 || licznikPetli == 12500000 || licznikPetli == 13000000 ||
+                    licznikPetli == 13500000 || licznikPetli == 14000000 )
                 {
                     Console.WriteLine("Wykonałem już {0} porównań. Minęło {1}.", licznikPetli,
                         (DateTime.Now - czasWykonywanaPetli));
@@ -143,7 +151,7 @@ namespace iterations
         {
             
             //var duplikatListyLosowan = new ArrayList();
-            for (i = 0; i < 150000; i++)
+            for (i = 0; i < 14000000; i++)
             {
                 LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
                 var test1 = losowanie.AsEnumerable().ToArray();

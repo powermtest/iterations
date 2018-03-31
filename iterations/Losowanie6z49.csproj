@@ -60,7 +60,6 @@
     <Compile Include="Losowanie6z49.cs" />
     <Compile Include="LosowanieMetdaGlowna.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SprawdzanieDuplikatowLosowan.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
