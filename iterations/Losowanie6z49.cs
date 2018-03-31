@@ -117,17 +117,24 @@ namespace iterations
                     Console.WriteLine("Wykonałem już {0} porównań. Minęło {1}.", licznikPetli, (DateTime.Now-czasWykonywanaPetli));
                 }
                 ////Test, czy znajdowanie obiektów działa
-                //duplikatListyLosowan.Insert(0,obiekt);
-                
+                duplikatListyLosowan.Insert(0,obiekt);
                 if (duplikatListyLosowan.Contains(obiekt))
                 {
                     Console.WriteLine("znalazłem powtarzające się losowania!");
                     listaPowtorzonuchLosowan.Add(obiekt);
                     liczknikDuplikat++;
+                    foreach (Array zduplikowaneLosowanie in listaPowtorzonuchLosowan)
+                    {
+                        foreach (var numerki in zduplikowaneLosowanie)
+                        {
+                            Console.Write(numerki + ", ");
+                        }
+                        Console.WriteLine();
+                    }
                     
                 }
                 licznikPetli++;
-                
+
             }
             if (liczknikDuplikat == 0)
             {
