@@ -115,7 +115,8 @@ namespace iterations
 
             {
                 
-                if (licznikPetli == 1000 || licznikPetli == 10000 || licznikPetli == 25000 || licznikPetli == 70000 || licznikPetli == 100000 || licznikPetli == 130000)
+                if (licznikPetli == 1000 || licznikPetli == 10000 || licznikPetli == 25000 || licznikPetli == 50000 ||
+                    licznikPetli == 70000 || licznikPetli == 90000 || licznikPetli == 100000 || licznikPetli == 130000)
                 {
                     Console.WriteLine("Wykonałem już {0} porównań. Minęło {1}.", licznikPetli, (DateTime.Now-czasWykonywanaPetli));
                 }
@@ -231,20 +232,12 @@ namespace iterations
                     listaLosowan.RemoveAt(i);
                     i--;
                 }
-                if (listaLosowan.Equals(duplikatListyLosowan))
-                {
-                    Console.WriteLine("listy są identyczne");
-                }
-                //skoro mam dwie identyczne listy (to powyżej nie działa), to może porównamy je element po elemencie?
-
-
-                //continue;
-
-
-
-
-
-
+               
+                
+            }
+            if (listaLosowan.Equals(duplikatListyLosowan))
+            {
+                Console.WriteLine("listy są identyczne");
             }
         }
     }
