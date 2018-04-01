@@ -115,7 +115,7 @@ namespace iterations
             string[] separatorNowejLiniit = new string [1];
                 separatorNowejLiniit[0] = string.Empty ;
             var iteracja = 1;
-            double procent = (Convert.ToDouble(licznikPetli * iteracja)) / (Convert.ToDouble(duplikatListyLosowan.Count));
+            //double procent = (Convert.ToDouble(licznikPetli * iteracja)) / (Convert.ToDouble(duplikatListyLosowan.Count));
             Console.WriteLine("Mam wystarczająco danych. Zaczynam porównania. Dam znac co 1k wykonanych iteracji.");
             foreach (var obiekt in listaLosowan)
             {
@@ -124,7 +124,7 @@ namespace iterations
                     {
                     
                     Console.WriteLine("Wykonałem już {0} porównań ze {3} losowań ({4}%). Minęło {1}. Znalazłem {2} duplikatów.", (licznikPetli*iteracja), 
-                        (DateTime.Now - czasWykonywanaPetli), liczknikDuplikat, duplikatListyLosowan.Count, Math.Round(procent*100,5));
+                        (DateTime.Now - czasWykonywanaPetli), liczknikDuplikat, duplikatListyLosowan.Count, Math.Round((Convert.ToDouble(licznikPetli * iteracja)/14000000)*100,5));
                         iteracja++;
                         licznikPetli = 0;
                     
