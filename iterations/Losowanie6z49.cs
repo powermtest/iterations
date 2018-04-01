@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.IO;
 
@@ -117,15 +115,16 @@ namespace iterations
             string[] separatorNowejLiniit = new string [1];
                 separatorNowejLiniit[0] = string.Empty ;
             var iteracja = 1;
-            Console.WriteLine("Mam wystarczająco danych. Zaczynam porównania. Dam znac co 5k wykonanych iteracji.");
+            double procent = (Convert.ToDouble(licznikPetli * iteracja)) / (Convert.ToDouble(duplikatListyLosowan.Count));
+            Console.WriteLine("Mam wystarczająco danych. Zaczynam porównania. Dam znac co 1k wykonanych iteracji.");
             foreach (var obiekt in listaLosowan)
             {
                 
-                if (licznikPetli == 5555)
+                if (licznikPetli == 1111)
                     {
                     
-                    Console.WriteLine("Wykonałem już {0} porównań ze {3} losowań. Minęło {1}. Znalazłem {2} duplikatów.", (licznikPetli*iteracja), 
-                        (DateTime.Now - czasWykonywanaPetli), liczknikDuplikat, duplikatListyLosowan.Count);
+                    Console.WriteLine("Wykonałem już {0} porównań ze {3} losowań ({4}%). Minęło {1}. Znalazłem {2} duplikatów.", (licznikPetli*iteracja), 
+                        (DateTime.Now - czasWykonywanaPetli), liczknikDuplikat, duplikatListyLosowan.Count, Math.Round(procent*100,5));
                         iteracja++;
                         licznikPetli = 0;
                     
@@ -155,7 +154,6 @@ namespace iterations
                         Console.WriteLine();
                         File.AppendAllLines(sciezka, separatorNowejLiniit);
                         
-
                     }
 
                 }
@@ -191,13 +189,13 @@ namespace iterations
                 var rozne = losowanie.Distinct(); //do uniemozliwienia istnienia duplikatow w losowaniu
                 var iloscElementowRozne = rozne.ToArray().Length;
                 var iloscElementowLosowanie = losowanie.Length;
-
+                double procent = Convert.ToDouble(iteracja * licznikIteracji) / 14000000;
                 
                 if (iloscElementowRozne == iloscElementowLosowanie)
                 {
                     if (iteracja == 111111)
                     {
-                        Console.WriteLine("Przeprowadziłem {0} losowań. Minęło {1}", (iteracja * licznikIteracji), (DateTime.Now - czasStart));
+                        Console.WriteLine("Przeprowadziłem {0} z 14mln losowań --> {2}%. Minęło {1}", (iteracja * licznikIteracji), (DateTime.Now - czasStart), Math.Round(procent*100, 5));
                         licznikIteracji++;
                         iteracja = 0;
                     }
