@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.IO;
 
 namespace iterations
 {
@@ -105,6 +107,8 @@ namespace iterations
         private static void SzukanieDuplikatowLosowan(ArrayList listaLosowan, int licznikPetli, DateTime czasWykonywanaPetli,
             ArrayList duplikatListyLosowan, ArrayList listaPowtorzonuchLosowan, int liczknikDuplikat)
         {
+            var kontrolkaNazwyPliku = DateTime.Now;
+            var pliczek = File.Create(@"C:\Users\programowanie\Desktop\pliczek"+ Convert.ToString(kontrolkaNazwyPliku, CultureInfo.CurrentCulture)+".txt");
             foreach (var obiekt in listaLosowan)
             {
                 if (licznikPetli == 1000 || licznikPetli == 10000 || licznikPetli == 25000 || licznikPetli == 50000 ||
@@ -135,9 +139,11 @@ namespace iterations
                         foreach (var numerki in zduplikowaneLosowanie)
                         {
                             Console.Write(numerki + ", ");
+                            //pliczek.CanWrite(numerki + ", ");
                         }
                         Console.WriteLine();
                     }
+                    
                 }
                 licznikPetli++;
             }
@@ -151,7 +157,7 @@ namespace iterations
         {
             
             //var duplikatListyLosowan = new ArrayList();
-            for (i = 0; i < 14000000; i++)
+            for (i = 0; i < 1000; i++)
             {
                 LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
                 var test1 = losowanie.AsEnumerable().ToArray();
