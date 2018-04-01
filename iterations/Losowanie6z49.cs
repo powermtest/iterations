@@ -116,12 +116,7 @@ namespace iterations
             var sciezka = sciezkaPlik + sciezkaNumerator + sciezkaRozszerzenie;
             string[] separatorNowejLiniit = new string [1];
                 separatorNowejLiniit[0] = string.Empty ;
-            //File.OpenWrite(sciezka);
-
-            //var pliczek = File.Create(sciezka);
-
-            //pliczek.Name.Insert(0, Convert.ToString(DateTime.Now));
-            var iteracja = 1;
+            var iteracja = 0;
 
             foreach (var obiekt in listaLosowan)
             {
@@ -129,9 +124,11 @@ namespace iterations
                 if (licznikPetli == 1000)
                     {
                     
-                    Console.WriteLine("Wykonałem już {0} porównań. Minęło {1}", (licznikPetli*iteracja), (DateTime.Now - czasWykonywanaPetli));
+                    Console.WriteLine("Wykonałem już {0} porównań ze {3} losowań. Minęło {1}. Znalazłem {2} duplikatów.", (licznikPetli*iteracja), 
+                        (DateTime.Now - czasWykonywanaPetli), liczknikDuplikat, duplikatListyLosowan.Count);
                         iteracja++;
                         licznikPetli = 0;
+                    
 
                 }
                 #region Sprawdzanie funkcjonalności listowania znalezionych duplikatów
@@ -176,9 +173,11 @@ namespace iterations
 
         private static void IloscLosowanNaListe(int[] losowanie, ArrayList listaLosowan, ArrayList duplikatListyLosowan, out int i)
         {
-            
+            var iteracja = 0;
+            var licznikIteracji = 1;
+            var licznikPrzeprowadzonychLosowan = 0;
             //var duplikatListyLosowan = new ArrayList();
-            for (i = 0; i < 155000; i++)
+            for (i = 0; i < 150000; i++)
             {
                 LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
                 var test1 = losowanie.AsEnumerable().ToArray();
@@ -190,94 +189,30 @@ namespace iterations
                 var rozne = losowanie.Distinct(); //do uniemozliwienia istnienia duplikatow w losowaniu
                 var iloscElementowRozne = rozne.ToArray().Length;
                 var iloscElementowLosowanie = losowanie.Length;
+               
+
                 if (iloscElementowRozne == iloscElementowLosowanie)
                 {
-                    switch (i)
+                    if (iteracja == 10000)
                     {
-                        case 50000:
-                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
-                            break;
-                        case 100000:
-                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
-                            break;
-                        case 150000:
-                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
-                            break;
-                        case 250000:
-                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
-                            break;
-                                
-                        case 500000:
-                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
-                            break;
-
-                        case 750000:
-                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
-                            break;
-
-                        case 900000:
-                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
-                            break;
-
-                        case 1250000:
-                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
-                            break;
-
-                        case 1750000:
-                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
-                            break;
-
-                        case 2500000:
-                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
-                            break;
-
-                        case 3500000:
-                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
-                            break;
-
-                        case 5000000:
-                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
-                            break;
-
-                        case 7500000:
-                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
-                            break;
-
-                        case 9000000:
-                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
-                            break;
-
-                        case 11111111:
-                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
-                            break;
-
-                        case 12222222:
-                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
-                            break;
-
-                        case 13333333:
-                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
-                            break;
-
-                        case 14444444:
-                            Console.WriteLine("Przeprowadziłem już {0} losowań!", i);
-                           break;
+                        Console.WriteLine("Przeprowadziłem {0} losowań.", (iteracja * licznikIteracji));
+                        licznikIteracji++;
+                        iteracja = 0;
                     }
                 }
-                else
+               else
                 {
                     Console.WriteLine("Znalazłem zduplikowane liczby w losowaniu - losuję jeszcze raz.");
                     listaLosowan.RemoveAt(i);
                     i--;
                 }
-               
-                
+                iteracja++;
+                licznikPrzeprowadzonychLosowan++;
+
+
             }
-            //skoro mam dwie osobno generowane listy, to poniższe jest nieaktualne...
-            //if (listaLosowan.Equals(duplikatListyLosowan))
-            //{
-            //    Console.WriteLine("listy są identyczne");
-            //}
+            Console.WriteLine("W sumie losowań: {0}", licznikPrzeprowadzonychLosowan);
+            
         }
     }
 }
