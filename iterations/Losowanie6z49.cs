@@ -176,8 +176,9 @@ namespace iterations
             var iteracja = 0;
             var licznikIteracji = 1;
             var licznikPrzeprowadzonychLosowan = 0;
+            var czasStart = DateTime.Now;
             //var duplikatListyLosowan = new ArrayList();
-            for (i = 0; i < 150000; i++)
+            for (i = 0; i < 14000000; i++)
             {
                 LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
                 var test1 = losowanie.AsEnumerable().ToArray();
@@ -195,7 +196,7 @@ namespace iterations
                 {
                     if (iteracja == 10000)
                     {
-                        Console.WriteLine("Przeprowadziłem {0} losowań.", (iteracja * licznikIteracji));
+                        Console.WriteLine("Przeprowadziłem {0} losowań. Minęło {1}", (iteracja * licznikIteracji), (DateTime.Now - czasStart));
                         licznikIteracji++;
                         iteracja = 0;
                     }
