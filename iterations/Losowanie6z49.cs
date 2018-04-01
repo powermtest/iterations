@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.IO;
-using System.IO.file;
 
 
 namespace iterations
@@ -26,6 +25,7 @@ namespace iterations
             ArrayList listaLosowan = new ArrayList();
             ArrayList duplikatListyLosowan = new ArrayList();
             var czasStart = DateTime.Now;
+
 
             Console.WriteLine("Start aplikacji: " + czasStart);
             #region Wyswietlanie_na_ekranie_pierwszego_losowania
@@ -100,7 +100,7 @@ namespace iterations
             #endregion
             var liczknikDuplikat = 0;
             var listaPowtorzonuchLosowan = new ArrayList();
-            var licznikPetli = 0;
+            var licznikPetli = 1;
             var czasWykonywanaPetli = DateTime.Now;
             SzukanieDuplikatowLosowan(listaLosowan, licznikPetli, czasWykonywanaPetli, duplikatListyLosowan, listaPowtorzonuchLosowan, liczknikDuplikat);
             Console.WriteLine("Czas wykonania calosci programu: " + (DateTime.Now - czasStart));
@@ -110,55 +110,58 @@ namespace iterations
             ArrayList duplikatListyLosowan, ArrayList listaPowtorzonuchLosowan, int liczknikDuplikat)
         {
             //var kontrolkaNazwyPliku = DateTime.Now;
-            var sciezka = @"C:\Users\programowanie\Desktop\testy\pliczek";
+            var sciezkaPlik = @"C:\Users\programowanie\Desktop\testy\pliczek";
+            var sciezkaNumerator = Convert.ToString(DateTime.Now.Hour) + Convert.ToString(DateTime.Now.Minute) + Convert.ToString(DateTime.Now.Second);
+            var sciezkaRozszerzenie = ".txt";
+            var sciezka = sciezkaPlik + sciezkaNumerator + sciezkaRozszerzenie;
+            string[] separatorNowejLiniit = new string [1];
+                separatorNowejLiniit[0] = string.Empty ;
             //File.OpenWrite(sciezka);
 
             //var pliczek = File.Create(sciezka);
 
             //pliczek.Name.Insert(0, Convert.ToString(DateTime.Now));
+            var iteracja = 1;
+
             foreach (var obiekt in listaLosowan)
             {
-                if (licznikPetli == 1000 || licznikPetli == 10000 || licznikPetli == 25000 || licznikPetli == 50000 ||
-                    licznikPetli == 70000 || licznikPetli == 90000 || licznikPetli == 100000 || licznikPetli == 130000 ||
-                    licznikPetli == 250000 || licznikPetli == 500000 || licznikPetli == 750000 || licznikPetli == 1000000 ||
-                    licznikPetli == 1500000 || licznikPetli == 2000000 || licznikPetli == 2500000 || licznikPetli == 3000000 ||
-                    licznikPetli == 3500000 || licznikPetli == 4000000 || licznikPetli == 4500000 || licznikPetli == 5000000 ||
-                    licznikPetli == 5500000 || licznikPetli == 6000000 || licznikPetli == 6500000 || licznikPetli == 7000000 ||
-                    licznikPetli == 7500000 || licznikPetli == 8000000 || licznikPetli == 8500000 || licznikPetli == 9000000 ||
-                    licznikPetli == 9500000 || licznikPetli == 10000000 || licznikPetli == 10500000 || licznikPetli == 11000000 ||
-                    licznikPetli == 11500000 || licznikPetli == 12000000 || licznikPetli == 12500000 || licznikPetli == 13000000 ||
-                    licznikPetli == 13500000 || licznikPetli == 14000000 )
-                {
-                    Console.WriteLine("Wykonałem już {0} porównań. Minęło {1}.", licznikPetli,
-                        (DateTime.Now - czasWykonywanaPetli));
+                
+                if (licznikPetli == 1000)
+                    {
+                    
+                    Console.WriteLine("Wykonałem już {0} porównań. Minęło {1}", (licznikPetli*iteracja), (DateTime.Now - czasWykonywanaPetli));
+                        iteracja++;
+                        licznikPetli = 0;
+
                 }
                 #region Sprawdzanie funkcjonalności listowania znalezionych duplikatów
                 ////Test, czy znajdowanie obiektów działa
-                duplikatListyLosowan.Insert(0, obiekt);
+                //duplikatListyLosowan.Clear();
+                //duplikatListyLosowan.Insert(0, obiekt);
+
                 #endregion
+
                 if (duplikatListyLosowan.Contains(obiekt))
                 {
                     Console.WriteLine("znalazłem powtarzające się losowania!");
+                    listaPowtorzonuchLosowan.Clear();
                     listaPowtorzonuchLosowan.Add(obiekt);
                     liczknikDuplikat++;
-                    var separator = "------------------";
-                    var sciezkaPlikuZDuplikatami = sciezka + liczknikDuplikat;
+                    //var separator = "------------------";
+                    //var sciezkaPlikuZDuplikatami = sciezka + liczknikDuplikat;
                     
                     foreach (Array zduplikowaneLosowanie in listaPowtorzonuchLosowan)
                     {
                         foreach (var numerki in zduplikowaneLosowanie)
                         {
                             Console.Write(numerki + ", ");
-                            //File.CreateText(Convert.ToString(numerki) + ", ");
-                            //File.WriteAllText(sciezka, Convert.ToString(numerki) + ", ");
-                            //File.Create(sciezkaPlikuZDuplikatami);
                             File.AppendAllText(sciezka, Convert.ToString(numerki) + ", ");
-
+                            //zduplikowaneLosowanie.SetValue(0, 0);
                         }
                         Console.WriteLine();
-                        File. .WriteAllLines(sciezka, separator);
+                        File.AppendAllLines(sciezka, separatorNowejLiniit);
+                        
 
-                        //File.
                     }
 
                 }
@@ -175,7 +178,7 @@ namespace iterations
         {
             
             //var duplikatListyLosowan = new ArrayList();
-            for (i = 0; i < 5; i++)
+            for (i = 0; i < 155000; i++)
             {
                 LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
                 var test1 = losowanie.AsEnumerable().ToArray();
