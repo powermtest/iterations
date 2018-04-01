@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.IO;
+using System.IO.file;
+
 
 namespace iterations
 {
@@ -107,8 +109,13 @@ namespace iterations
         private static void SzukanieDuplikatowLosowan(ArrayList listaLosowan, int licznikPetli, DateTime czasWykonywanaPetli,
             ArrayList duplikatListyLosowan, ArrayList listaPowtorzonuchLosowan, int liczknikDuplikat)
         {
-            var kontrolkaNazwyPliku = DateTime.Now;
-            var pliczek = File.Create(@"C:\Users\programowanie\Desktop\pliczek"+ Convert.ToString(kontrolkaNazwyPliku, CultureInfo.CurrentCulture)+".txt");
+            //var kontrolkaNazwyPliku = DateTime.Now;
+            var sciezka = @"C:\Users\programowanie\Desktop\testy\pliczek";
+            //File.OpenWrite(sciezka);
+
+            //var pliczek = File.Create(sciezka);
+
+            //pliczek.Name.Insert(0, Convert.ToString(DateTime.Now));
             foreach (var obiekt in listaLosowan)
             {
                 if (licznikPetli == 1000 || licznikPetli == 10000 || licznikPetli == 25000 || licznikPetli == 50000 ||
@@ -127,23 +134,33 @@ namespace iterations
                 }
                 #region Sprawdzanie funkcjonalności listowania znalezionych duplikatów
                 ////Test, czy znajdowanie obiektów działa
-                //duplikatListyLosowan.Insert(0, obiekt); 
+                duplikatListyLosowan.Insert(0, obiekt);
                 #endregion
                 if (duplikatListyLosowan.Contains(obiekt))
                 {
                     Console.WriteLine("znalazłem powtarzające się losowania!");
                     listaPowtorzonuchLosowan.Add(obiekt);
                     liczknikDuplikat++;
+                    var separator = "------------------";
+                    var sciezkaPlikuZDuplikatami = sciezka + liczknikDuplikat;
+                    
                     foreach (Array zduplikowaneLosowanie in listaPowtorzonuchLosowan)
                     {
                         foreach (var numerki in zduplikowaneLosowanie)
                         {
                             Console.Write(numerki + ", ");
-                            //pliczek.CanWrite(numerki + ", ");
+                            //File.CreateText(Convert.ToString(numerki) + ", ");
+                            //File.WriteAllText(sciezka, Convert.ToString(numerki) + ", ");
+                            //File.Create(sciezkaPlikuZDuplikatami);
+                            File.AppendAllText(sciezka, Convert.ToString(numerki) + ", ");
+
                         }
                         Console.WriteLine();
+                        File. .WriteAllLines(sciezka, separator);
+
+                        //File.
                     }
-                    
+
                 }
                 licznikPetli++;
             }
@@ -151,13 +168,14 @@ namespace iterations
             {
                 Console.WriteLine("Nic się nie powtórzyło...");
             }
+            
         }
 
         private static void IloscLosowanNaListe(int[] losowanie, ArrayList listaLosowan, ArrayList duplikatListyLosowan, out int i)
         {
             
             //var duplikatListyLosowan = new ArrayList();
-            for (i = 0; i < 1000; i++)
+            for (i = 0; i < 5; i++)
             {
                 LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
                 var test1 = losowanie.AsEnumerable().ToArray();
