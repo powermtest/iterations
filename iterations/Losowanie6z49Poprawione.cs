@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace iterations
 {
-    public static class Losowanie6Z49poprawione //zwracana jest macierz z 6 liczbami od 1 do 49
+    public static class Losowanie6Z49Poprawione //zwracana jest macierz z 6 liczbami od 1 do 49
     {
 
         public static int RandNumber(int low, int high)

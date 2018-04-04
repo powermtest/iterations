@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 
 
 namespace iterations
 {
-    class ProgramGlowny
+    public class ProgramGlowny
     {
         static void Main(string[] args)
         {
             int[] losowanie = new int[6];
-            LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
-            ArrayList listaLosowan = new ArrayList();
-            ArrayList duplikatListyLosowan = new ArrayList();
+            LosowanieMetdaGlowna.LosowanieLiczb();
+            var listaLosowan = new List <int[]>();
+            var duplikatListyLosowan = new List<int[]>();
             var czasStart = DateTime.Now;
             
             Console.WriteLine("Start aplikacji: " + czasStart);
@@ -78,20 +79,20 @@ namespace iterations
 
             #endregion
 
-            var liczknikDuplikat = 0;
-            var listaPowtorzonuchLosowan = new ArrayList();
-            var licznikPetli = 1;
-            var czasWykonywanaPetli = DateTime.Now;
-            SzukanieDuplikatowLosowan(listaLosowan, licznikPetli, czasWykonywanaPetli, duplikatListyLosowan,
-                listaPowtorzonuchLosowan, liczknikDuplikat);
+            var listaPowtorzonuchLosowan = new List<int[]>();
+            
+            SzukanieDuplikatowLosowan();
             Console.WriteLine("Czas wykonania calosci programu: " + (DateTime.Now - czasStart));
         }
 
-        private static void SzukanieDuplikatowLosowan(ArrayList listaLosowan, int licznikPetli,
-            DateTime czasWykonywanaPetli,
-            ArrayList duplikatListyLosowan, ArrayList listaPowtorzonuchLosowan, int liczknikDuplikat)
+         static void SzukanieDuplikatowLosowan()
         {
             //var kontrolkaNazwyPliku = DateTime.Now;
+            var duplikatListyLosowan = new List<int[]>();
+            var listaLosowan = new List<int[]>();
+            IEnumerable<Array> duplikatyListyLosowanEnumerator = duplikatListyLosowan.Cast<int[]>();
+            IEnumerable<Array> listaLosowanEnumerator = listaLosowan.Cast<int[]>();
+
             var sciezkaPlik = @"C:\Users\programowanie\Desktop\testy\pliczek";
             var sciezkaNumerator = Convert.ToString(DateTime.Now.Hour) + Convert.ToString(DateTime.Now.Minute) +
                                    Convert.ToString(DateTime.Now.Second);
@@ -103,10 +104,22 @@ namespace iterations
             //double procent = (Convert.ToDouble(licznikPetli * iteracja)) / (Convert.ToDouble(duplikatListyLosowan.Count));
             Console.WriteLine("Mam wystarczająco danych. Zaczynam porównania. Dam znac co 1k wykonanych iteracji.");
 
-            foreach (Array obiekt in listaLosowan)
-            {
+            //for (int i = 0; i < duplikatListyLosowan.Capacity; i++)
+            //{
 
-                if (licznikPetli == 1111)
+
+            //    listaLosowan.Contains(myenumerator);
+            //}
+            var licznikPetli = 1;
+            var liczknikDuplikat = 0;
+            var czasWykonywanaPetli = DateTime.Now;
+
+            //foreach (int[] obiekt in listaLosowan)
+            foreach (int[] obiekt in listaLosowanEnumerator)
+
+                {
+
+                    if (licznikPetli == 1111)
                 {
 
                     Console.WriteLine(
@@ -129,26 +142,29 @@ namespace iterations
                 #endregion
 
                 var ciekawe = duplikatListyLosowan.IndexOf(obiekt);
-                //if (duplikatListyLosowan.Contains(obiekt))
+                if (duplikatListyLosowan.Contains(obiekt) || duplikatyListyLosowanEnumerator.Contains(obiekt))
+                    Console.WriteLine("To działa lepiej...");
                 if (ciekawe != (-1))
                 {
                     Console.WriteLine("znalazłem powtarzające się losowania!");
                     //Console.WriteLine(obiekt);
-                    listaPowtorzonuchLosowan.Clear();
-                    listaPowtorzonuchLosowan.Add(obiekt);
+                    //listaPowtorzonuchLosowan.Clear();
+                    //listaPowtorzonuchLosowan.Add(obiekt);
                     liczknikDuplikat++;
 
-                    foreach (Array zduplikowaneLosowanie in listaPowtorzonuchLosowan)
+                    foreach (var liczba in obiekt)
+                    //foreach (object zduplikowaneLosowanie in listaPowtorzonuchLosowan)
                     {
-                        foreach (var numerki in zduplikowaneLosowanie)
-                        {
-                            Console.Write(numerki + ", ");
-                            File.AppendAllText(sciezka, Convert.ToString(numerki) + ", ");
-                        }
-                        Console.WriteLine();
-                        File.AppendAllLines(sciezka, separatorNowejLiniit);
+                        Console.WriteLine(liczba + ", ");
+                        //foreach (var numerki in tymczasowe)
+                        //{
+                        //    Console.Write(numerki + ", ");
+                        //    File.AppendAllText(sciezka, Convert.ToString(numerki) + ", ");
+                        //}
+                        
                     }
-
+                    Console.WriteLine();
+                    File.AppendAllLines(sciezka, separatorNowejLiniit);
                 }
                 licznikPetli++;
             }
@@ -159,10 +175,12 @@ namespace iterations
 
         }
 
-        private static void IloscLosowanNaListe(int[] losowanie, ArrayList listaLosowan, ArrayList duplikatListyLosowan,
+         static void IloscLosowanNaListe(int[] losowanie, List<int[]> listaLosowan, List<int[]> duplikatListyLosowan,
             out int i)
-        {
-            var iloscLosowanDoPrzeprowadzenia = 140000;
+         {
+             var test1 = new int[6];
+             var test2 = new int[6];
+            var iloscLosowanDoPrzeprowadzenia = 100;
             var iteracja = 0;
             var licznikIteracji = 1;
             var licznikPrzeprowadzonychLosowan = 0;
@@ -170,26 +188,34 @@ namespace iterations
             Console.WriteLine("Zaczynamy losowanie. Dam znać co 111k elementów.");
             for (i = 0; i < iloscLosowanDoPrzeprowadzenia; i++)
             {
-                LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
-                var test1 = losowanie.ToArray().AsEnumerable();
-                listaLosowan.Add(test1);
-                LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
-                var test2 = losowanie.ToArray().AsEnumerable();
-                duplikatListyLosowan.Add(test2);
-                //var spr1 = test1.Count();
-                //var spr2 = test2.Count();
+                //LosowanieMetdaGlowna.LosowanieLiczb();
+                //var test1 = losowanie;
+                listaLosowan.Add(LosowanieMetdaGlowna.LosowanieLiczb());
+                test1 = listaLosowan.ElementAt(i);//LosowanieMetdaGlowna.LosowanieLiczb();
+                //var test2 = losowanie;
+                duplikatListyLosowan.Add(LosowanieMetdaGlowna.LosowanieLiczb());
+                test2 = duplikatListyLosowan.ElementAt(i);
+                var spr1 = test1.Distinct().Count();
+                var spr2 = test2.Distinct().Count();
 
+                if (spr1 != 6 || spr2 != 6)
+                {
+                    listaLosowan.RemoveAt(i);
+                    duplikatListyLosowan.RemoveAt(i);
+                    i--;
+                    continue;
+                }
                 double procent = Convert.ToDouble(iteracja * licznikIteracji) / iloscLosowanDoPrzeprowadzenia;
 
                 //if (spr1 == spr2)
                 //{
-                    if (iteracja == 111111)
-                    {
-                        Console.WriteLine("Przeprowadziłem {0} z 14mln losowań --> {2}%. Minęło {1}",
-                            (iteracja * licznikIteracji), (DateTime.Now - czasStart), Math.Round(procent * 100, 5));
-                        licznikIteracji++;
-                        iteracja = 0;
-                    }
+                if (iteracja == 111111)
+                {
+                    Console.WriteLine("Przeprowadziłem {0} z 14mln losowań --> {2}%. Minęło {1}",
+                        (iteracja * licznikIteracji), (DateTime.Now - czasStart), Math.Round(procent * 100, 5));
+                    licznikIteracji++;
+                    iteracja = 0;
+                }
                 //}
                 //else
                 //{
