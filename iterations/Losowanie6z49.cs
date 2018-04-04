@@ -117,33 +117,49 @@ namespace iterations
             var iteracja = 1;
             //double procent = (Convert.ToDouble(licznikPetli * iteracja)) / (Convert.ToDouble(duplikatListyLosowan.Count));
             Console.WriteLine("Mam wystarczająco danych. Zaczynam porównania. Dam znac co 1k wykonanych iteracji.");
-            foreach (var obiekt in listaLosowan)
+
+            //listaLosowan.Sort();
+            //duplikatListyLosowan.Sort();
+
+            //for (int i = 0; i < listaLosowan.Count; i++)
+            //{
+            //    if (Object.Equals(listaLosowan[i], duplikatListyLosowan[i]))
+
+            //    Console.WriteLine("Different value at index {0}.", i);
+
+            //}
+
+
+
+            foreach (Array obiekt in listaLosowan)
             {
-                
+
                 if (licznikPetli == 1111)
-                    {
-                    
-                    Console.WriteLine("Wykonałem już {0} porównań ze {3} losowań ({4}%). Minęło {1}. Znalazłem {2} duplikatów.", (licznikPetli*iteracja), 
-                        (DateTime.Now - czasWykonywanaPetli), liczknikDuplikat, duplikatListyLosowan.Count, Math.Round((Convert.ToDouble(licznikPetli * iteracja)/14000000)*100,5));
-                        iteracja++;
-                        licznikPetli = 0;
-                    
+                {
+
+                    Console.WriteLine("Wykonałem już {0} porównań ze {3} losowań ({4}%). Minęło {1}. Znalazłem {2} duplikatów.", (licznikPetli * iteracja),
+                        (DateTime.Now - czasWykonywanaPetli), liczknikDuplikat, duplikatListyLosowan.Count, Math.Round((Convert.ToDouble(licznikPetli * iteracja) / 14000000) * 100, 5));
+                    iteracja++;
+                    licznikPetli = 0;
+
 
                 }
                 #region Sprawdzanie funkcjonalności listowania znalezionych duplikatów
                 ////Test, czy znajdowanie obiektów działa
                 //duplikatListyLosowan.Clear();
                 //duplikatListyLosowan.Insert(0, obiekt);
-
                 #endregion
 
-                if (duplikatListyLosowan.Contains(obiekt))
+                var ciekawe = duplikatListyLosowan.LastIndexOf(obiekt);
+                //if (duplikatListyLosowan.Contains(obiekt))
+                if (duplikatListyLosowan.LastIndexOf(obiekt) != (-1))
                 {
                     Console.WriteLine("znalazłem powtarzające się losowania!");
+                    Console.WriteLine(obiekt);
                     listaPowtorzonuchLosowan.Clear();
                     listaPowtorzonuchLosowan.Add(obiekt);
                     liczknikDuplikat++;
-                    
+
                     foreach (Array zduplikowaneLosowanie in listaPowtorzonuchLosowan)
                     {
                         foreach (var numerki in zduplikowaneLosowanie)
@@ -153,7 +169,6 @@ namespace iterations
                         }
                         Console.WriteLine();
                         File.AppendAllLines(sciezka, separatorNowejLiniit);
-                        
                     }
 
                 }
@@ -163,7 +178,7 @@ namespace iterations
             {
                 Console.WriteLine("Nic się nie powtórzyło...");
             }
-            
+
         }
 
         private static void IloscLosowanNaListe(int[] losowanie, ArrayList listaLosowan, ArrayList duplikatListyLosowan, out int i)
@@ -172,18 +187,14 @@ namespace iterations
             var licznikIteracji = 1;
             var licznikPrzeprowadzonychLosowan = 0;
             var czasStart = DateTime.Now;
-            int[] test1 = new int [6];
-            int[] test2 = new int [6];
-            //var duplikatListyLosowan = new ArrayList();
             Console.WriteLine("Zaczynamy losowanie. Dam znać co 111k elementów.");
             for (i = 0; i < 14000000; i++)
             {
-                LosowanieMetdaGlowna.LosowanieLiczb(test1);
-                //var test1 = losowanie.AsEnumerable().ToArray();
+                LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
+                var test1 = losowanie.ToArray();
                 listaLosowan.Add(test1);
-                LosowanieMetdaGlowna.LosowanieLiczb(test2);
-                //var test2 = losowanie.AsEnumerable().ToArray();
-               
+                LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
+                var test2 = losowanie.ToArray();
                 duplikatListyLosowan.Add(test2);
                 //LosowanieMetdaGlowna.LosowanieLiczb(losowanie);
                 var rozne = losowanie.Distinct(); //do uniemozliwienia istnienia duplikatow w losowaniu
@@ -211,8 +222,10 @@ namespace iterations
 
 
             }
-            Console.WriteLine("W sumie losowań: {0}", licznikPrzeprowadzonychLosowan);
             
+            Console.WriteLine("W sumie losowań: {0}", licznikPrzeprowadzonychLosowan);
+            //    listaLosowan.Sort();
+            //    duplikatListyLosowan.Sort();
         }
     }
 }
