@@ -152,10 +152,10 @@ namespace iterations
 
                 var ciekawe = duplikatListyLosowan.LastIndexOf(obiekt);
                 //if (duplikatListyLosowan.Contains(obiekt))
-                if (duplikatListyLosowan.LastIndexOf(obiekt) != (-1))
+                if (ciekawe != (-1))
                 {
                     Console.WriteLine("znalazłem powtarzające się losowania!");
-                    Console.WriteLine(obiekt);
+                    //Console.WriteLine(obiekt);
                     listaPowtorzonuchLosowan.Clear();
                     listaPowtorzonuchLosowan.Add(obiekt);
                     liczknikDuplikat++;
