@@ -177,7 +177,7 @@ namespace iterations
          {
              var test1 = new int[6];
              var test2 = new int[6];
-            var iloscLosowanDoPrzeprowadzenia = 14000000;
+            var iloscLosowanDoPrzeprowadzenia = 140;
             var iteracja = 0;
             var licznikIteracji = 1;
             var licznikPrzeprowadzonychLosowan = 0;
@@ -271,31 +271,33 @@ namespace iterations
                     var tymczasowaTablica2 = tablica[numerDrugiejTablicy];
                     //Sort(tymczasowaTablica2);
                     var listaIdentycznychNumerkow = new int[6];
-                    var kontrolnalistaIdentycznycNumerkow = new int[6];
+                    //poniższa zmienna była potrzebna do testów
+                    //var kontrolnalistaIdentycznycNumerkow = new int[6];
                     liczbaTozsamych = 0;
-                    if (i == numerDrugiejTablicy)
-                    {
-                        break;
-                    }
+                    
 
                     for (int pozycjaNumeruZLosowania = 0; pozycjaNumeruZLosowania < tymczasowaTablica1.Length; pozycjaNumeruZLosowania++)
                     {
+                        if (i == numerDrugiejTablicy)
+                        {
+                            break;
+                        }
                         var numerekZPierwszejListy = tymczasowaTablica1[pozycjaNumeruZLosowania];
                         var numerekZDrugiejListy = tymczasowaTablica2[pozycjaNumeruZLosowania];
                         if (numerekZPierwszejListy == numerekZDrugiejListy)
                         {
                             listaIdentycznychNumerkow[liczbaTozsamych] = numerekZPierwszejListy;
-                            kontrolnalistaIdentycznycNumerkow[liczbaTozsamych] = numerekZDrugiejListy;
+                            //Zmienna poniżej jest w ramach testów
+                            //kontrolnalistaIdentycznycNumerkow[liczbaTozsamych] = numerekZDrugiejListy;
                             liczbaTozsamych++;
-                            
-
                         }
                         else
                         {
                             pozycjaNumeruZLosowania = 0;
                             liczbaTozsamych = 0;
                             listaIdentycznychNumerkow = new int [6];
-                            kontrolnalistaIdentycznycNumerkow = new int [6];
+                            //poniższa zmienna była potrzebna do testów
+                            //kontrolnalistaIdentycznycNumerkow = new int [6];
                             break;
                         }
                         if (liczbaTozsamych == 6)
