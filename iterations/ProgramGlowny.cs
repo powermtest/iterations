@@ -175,8 +175,8 @@ namespace iterations
          static void IloscLosowanNaListe(int[] losowanie, List<int[]> listaLosowan, List<int[]> duplikatListyLosowan,
             out int i)
          {
-             var test1 = new int[6];
-             var test2 = new int[6];
+            var test1 = new int[6];
+            var test2 = new int[6];
             var iloscLosowanDoPrzeprowadzenia = 14000000;
             var iteracja = 0;
             var licznikIteracji = 1;
