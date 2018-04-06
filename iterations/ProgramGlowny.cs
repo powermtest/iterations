@@ -177,7 +177,7 @@ namespace iterations
          {
              var test1 = new int[6];
              var test2 = new int[6];
-            var iloscLosowanDoPrzeprowadzenia = 140000;
+            var iloscLosowanDoPrzeprowadzenia = 14000000;
             var iteracja = 0;
             var licznikIteracji = 1;
             var licznikPrzeprowadzonychLosowan = 0;
@@ -254,6 +254,13 @@ namespace iterations
         {
             var liczbaTozsamych = 0;
             var wszystkieIdentyczneLosowania = new List<int[]>();
+            var sciezkaPlik = @"C:\Users\programowanie\Desktop\testy\pliczek";
+            var sciezkaNumerator = Convert.ToString(DateTime.Now.Hour) + Convert.ToString(DateTime.Now.Minute) +
+                                   Convert.ToString(DateTime.Now.Second);
+            var sciezkaRozszerzenie = ".txt";
+            var sciezka = sciezkaPlik + sciezkaNumerator + sciezkaRozszerzenie;
+            string[] separatorNowejLiniit = new string[1];
+            separatorNowejLiniit[0] = string.Empty;
 
             var i = 0;
             foreach (int [] tymczasowaTablica1 in tablica)
@@ -297,8 +304,10 @@ namespace iterations
                             foreach (var VARIABLE in listaIdentycznychNumerkow)
                             {
                                 Console.Write(VARIABLE + ", ");
+                                File.AppendAllText(sciezka, Convert.ToString(VARIABLE) + ", ");
                             }
 
+                            File.AppendAllLines(sciezka, separatorNowejLiniit);
                             wszystkieIdentyczneLosowania.Add(listaIdentycznychNumerkow);
                             //Console.Write(wszystkieIdentyczneLosowania.Count());
                         }
