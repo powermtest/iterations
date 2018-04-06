@@ -177,7 +177,7 @@ namespace iterations
          {
              var test1 = new int[6];
              var test2 = new int[6];
-            var iloscLosowanDoPrzeprowadzenia = 140000;
+            var iloscLosowanDoPrzeprowadzenia = 14000000;
             var iteracja = 0;
             var licznikIteracji = 1;
             var licznikPrzeprowadzonychLosowan = 0;
