@@ -177,7 +177,7 @@ namespace iterations
          {
              var test1 = new int[6];
              var test2 = new int[6];
-            var iloscLosowanDoPrzeprowadzenia = 140;
+            var iloscLosowanDoPrzeprowadzenia = 140000;
             var iteracja = 0;
             var licznikIteracji = 1;
             var licznikPrzeprowadzonychLosowan = 0;
@@ -263,17 +263,26 @@ namespace iterations
             separatorNowejLiniit[0] = string.Empty;
 
             var i = 0;
+            //var licznikIteracjiPorownan = 0;
+            var numerPorownania = 0;
+            var startPorownan = DateTime.Now;
+            Console.WriteLine("Zaczynam szukanie powtarzających się losowań. {0}", startPorownan );
+            Console.WriteLine("Wyświetlę progress co 1234 próby.");
             foreach (int [] tymczasowaTablica1 in tablica)
             {
                 //Sort(tymczasowaTablica1);
+                //double procent = Convert.ToDouble(numerPorownania) / tablica.Count;
                 for (int numerDrugiejTablicy = 1; numerDrugiejTablicy < tablica.Count; numerDrugiejTablicy++)
                 {
+                    
+
                     var tymczasowaTablica2 = tablica[numerDrugiejTablicy];
                     //Sort(tymczasowaTablica2);
                     var listaIdentycznychNumerkow = new int[6];
                     //poniższa zmienna była potrzebna do testów
                     //var kontrolnalistaIdentycznycNumerkow = new int[6];
                     liczbaTozsamych = 0;
+
                     
 
                     for (int pozycjaNumeruZLosowania = 0; pozycjaNumeruZLosowania < tymczasowaTablica1.Length; pozycjaNumeruZLosowania++)
@@ -300,26 +309,41 @@ namespace iterations
                             //kontrolnalistaIdentycznycNumerkow = new int [6];
                             break;
                         }
+
                         if (liczbaTozsamych == 6)
                         {
+                            Sort(listaIdentycznychNumerkow);
+                            Console.WriteLine("-----------------------------------------------");
                             Console.WriteLine("Pieknie! Mamy komplet!");
                             foreach (var VARIABLE in listaIdentycznychNumerkow)
                             {
                                 Console.Write(VARIABLE + ", ");
                                 File.AppendAllText(sciezka, Convert.ToString(VARIABLE) + ", ");
+                                
                             }
-
+                            Console.WriteLine(DateTime.Now - startPorownan);
                             File.AppendAllLines(sciezka, separatorNowejLiniit);
+                            
                             wszystkieIdentyczneLosowania.Add(listaIdentycznychNumerkow);
+                            Console.WriteLine("-----------------------------------------------");
+
                             //Console.Write(wszystkieIdentyczneLosowania.Count());
                         }
 
                     }
 
                 }
-
                 i++;
+                //licznikIteracjiPorownan++;
+                numerPorownania = i;
 
+                if ( numerPorownania%1234==0)
+                {
+                    Console.WriteLine("Przeprowadziłem {0} z {3} losowań --> {2}%. Minęło {1}",
+                        (numerPorownania), (DateTime.Now - startPorownan), Math.Round(((Convert.ToDouble(numerPorownania)/Convert.ToDouble(tablica.Count)) * 100), 5),tablica.Count);
+                    //licznikIteracjiPorownan=0;
+                    //numerPorownania++;
+                }
             }
             Console.WriteLine("Identycznych losowań było: {0}", wszystkieIdentyczneLosowania.Count());
 
