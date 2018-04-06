@@ -80,8 +80,9 @@ namespace iterations
             #endregion
 
             var listaPowtorzonuchLosowan = new List<int[]>();
-            
-            SzukanieDuplikatowLosowan();
+            Duplikaty(listaLosowan);
+
+            //SzukanieDuplikatowLosowan();
             Console.WriteLine("Czas wykonania calosci programu: " + (DateTime.Now - czasStart));
         }
 
@@ -92,6 +93,7 @@ namespace iterations
             var listaLosowan = new List<int[]>();
             IEnumerable<Array> duplikatyListyLosowanEnumerator = duplikatListyLosowan.Cast<int[]>();
             IEnumerable<Array> listaLosowanEnumerator = listaLosowan.Cast<int[]>();
+            
 
             var sciezkaPlik = @"C:\Users\programowanie\Desktop\testy\pliczek";
             var sciezkaNumerator = Convert.ToString(DateTime.Now.Hour) + Convert.ToString(DateTime.Now.Minute) +
@@ -104,12 +106,7 @@ namespace iterations
             //double procent = (Convert.ToDouble(licznikPetli * iteracja)) / (Convert.ToDouble(duplikatListyLosowan.Count));
             Console.WriteLine("Mam wystarczająco danych. Zaczynam porównania. Dam znac co 1k wykonanych iteracji.");
 
-            //for (int i = 0; i < duplikatListyLosowan.Capacity; i++)
-            //{
 
-
-            //    listaLosowan.Contains(myenumerator);
-            //}
             var licznikPetli = 1;
             var liczknikDuplikat = 0;
             var czasWykonywanaPetli = DateTime.Now;
@@ -180,7 +177,7 @@ namespace iterations
          {
              var test1 = new int[6];
              var test2 = new int[6];
-            var iloscLosowanDoPrzeprowadzenia = 100;
+            var iloscLosowanDoPrzeprowadzenia = 140000;
             var iteracja = 0;
             var licznikIteracji = 1;
             var licznikPrzeprowadzonychLosowan = 0;
@@ -234,6 +231,86 @@ namespace iterations
             //    listaLosowan.Sort();
             //    duplikatListyLosowan.Sort();
             //listaLosowan.Sort();
+
+        }
+        static void Sort(int[] tablica)
+        {
+            int n = tablica.Length;
+            do
+            {
+                for (int i = 0; i < n - 1; i++)
+                {
+                    if (tablica[i] > tablica[i + 1])
+                    {
+                        int tmp = tablica[i];
+                        tablica[i] = tablica[i + 1];
+                        tablica[i + 1] = tmp;
+                    }
+                }
+                n--;
+            } while (n > 1);
+        }
+        static void Duplikaty(List<int[]>tablica)
+        {
+            var liczbaTozsamych = 0;
+            var wszystkieIdentyczneLosowania = new List<int[]>();
+
+            var i = 0;
+            foreach (int [] tymczasowaTablica1 in tablica)
+            {
+                //Sort(tymczasowaTablica1);
+                for (int numerDrugiejTablicy = 1; numerDrugiejTablicy < tablica.Count; numerDrugiejTablicy++)
+                {
+                    var tymczasowaTablica2 = tablica[numerDrugiejTablicy];
+                    //Sort(tymczasowaTablica2);
+                    var listaIdentycznychNumerkow = new int[6];
+                    var kontrolnalistaIdentycznycNumerkow = new int[6];
+                    liczbaTozsamych = 0;
+                    if (i == numerDrugiejTablicy)
+                    {
+                        break;
+                    }
+
+                    for (int pozycjaNumeruZLosowania = 0; pozycjaNumeruZLosowania < tymczasowaTablica1.Length; pozycjaNumeruZLosowania++)
+                    {
+                        var numerekZPierwszejListy = tymczasowaTablica1[pozycjaNumeruZLosowania];
+                        var numerekZDrugiejListy = tymczasowaTablica2[pozycjaNumeruZLosowania];
+                        if (numerekZPierwszejListy == numerekZDrugiejListy)
+                        {
+                            listaIdentycznychNumerkow[liczbaTozsamych] = numerekZPierwszejListy;
+                            kontrolnalistaIdentycznycNumerkow[liczbaTozsamych] = numerekZDrugiejListy;
+                            liczbaTozsamych++;
+                            
+
+                        }
+                        else
+                        {
+                            pozycjaNumeruZLosowania = 0;
+                            liczbaTozsamych = 0;
+                            listaIdentycznychNumerkow = new int [6];
+                            kontrolnalistaIdentycznycNumerkow = new int [6];
+                            break;
+                        }
+                        if (liczbaTozsamych == 6)
+                        {
+                            Console.WriteLine("Pieknie! Mamy komplet!");
+                            foreach (var VARIABLE in listaIdentycznychNumerkow)
+                            {
+                                Console.Write(VARIABLE + ", ");
+                            }
+
+                            wszystkieIdentyczneLosowania.Add(listaIdentycznychNumerkow);
+                            //Console.Write(wszystkieIdentyczneLosowania.Count());
+                        }
+
+                    }
+
+                }
+
+                i++;
+
+            }
+            Console.WriteLine("Identycznych losowań było: {0}", wszystkieIdentyczneLosowania.Count());
 
         }
 

@@ -9,27 +9,21 @@ namespace iterations
             //var test = new int[6] {4, 5, 3, 4, 5,14};
             var losowanie = new int[6];
             //var k = 0;
-            //for (var i = 0; i < 6; i++) //stworzenie tablicy dla wyniku losowania
-            //    losowanie[i] = Losowanie6Z49Poprawione.RandNumber(1, 8);
+            for (var i = 0; i < 6; i++) //stworzenie tablicy dla wyniku losowania
+                losowanie[i] = Losowanie6Z49Poprawione.RandNumber(1, 50);
 
             //losowanie = test;
             //Array.Sort(losowanie);
             Duplikaty(losowanie);
-            Sort(losowanie);
+            //Sort(losowanie);
 
 
-            //foreach (var liczba in losowanie)
-            //{
-            //    if (k < 5 && losowanie[k] == losowanie[k + 1])
-            //        LosowanieLiczb();
-            //    k++;
-            //    ;
-            //}
+            
 
 
             return losowanie;
         }
-
+        //nie sortujemy - to fałszuje wyniki!
         static void Sort(int[] tablica)
         {
             int n = tablica.Length;
@@ -56,7 +50,7 @@ namespace iterations
                 {
                     if (tablica[i] == tablica[j + 1])
                     {
-                        var ponownie = Losowanie6Z49Poprawione.RandNumber(1, 10);
+                        var ponownie = Losowanie6Z49Poprawione.RandNumber(1, 50);
                         tablica[j + 1] = ponownie;
                         j = j - 1;
                         continue;
